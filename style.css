@@ -2,97 +2,167 @@ body {
     padding: 0;
     margin: 0;
 }
+.controle {
+    position: fixed;
+    left: 20px;
+    top: 50px;
+    cursor: pointer;
+    z-index: 1;
+    filter: grayscale(1);
+}
+.controle > img {
+    width: 80px;
+}
+.music {
+    position: fixed;
+    z-index: 1;
+    left: 20px;
+    top: 20px;
+}
+.music a {
+    border-radius: 20px;
+    padding: 10px;
+    background: rgb(78, 76, 177);
+    color: aliceblue;
+    cursor: pointer;
+    text-decoration: none;
+    font-weight: bold;
+}
+.music_play {
+    background-color:rgb(112, 110, 210) !important;
+}
 .cenario {
     width: 100%;
     height: 100%;
+    background: #696969;
     /* background-image: url(./stage.jpg); */
     background-position: center;
     background-size: cover;
     position: fixed;
     bottom: 0;
 }
+.plataforma {
+    height: 30px;
+    width: 200px;
+    background-color: brown;
+    position: fixed;
+    border: 1px solid;
+}
+.plat1 {
+    bottom: 350px;
+    left: 280px;
+}
+.plat2 {
+    left: 40px;
+    top: 420px;
+}
+.plat3 {
+    left: 279px;
+    top: 269px;
+}
 .personagem {
-    background-image: url('./sprite_megaman.png');
     position: absolute;
-    bottom: 0;
     /* margin-left: 500px; */
     left: 500px;
-    bottom: 285px;
+    top: 469px;
     border: 1px solid red;
+    height: 135px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 122px;
+}
+.personagem > .content {
+    background-image: url('./sprite_megaman2.png');
+    background-size: 105em;
+    /* background-color: orange; */
+    position: absolute;
+    bottom: 0;
 }
 .retorno {
     transform: rotateY(181deg);
 }
 .parado {
-    width: 122px;
-    height: 135px;
-    background-size: 120em;
-    background-position-x: -304px;
-    background-position-y: 11px;
+    width: 93px;
+    height: 108px;
+    background-position-x: -316px;
+    background-position-y: -16px;
+}
+.parado2 {
+    width: 92px;
+    height: 108px;
+    background-position-x: -307px;
+    background-position-y: -142px;
+}
+.parado3 {
+    width: 93px;
+    height: 105px;
+    background-position-x: -295px;
+    background-position-y: -268px;
+}
+.parado4 {
+    width: 92px;
+    height: 108px;
+    background-position-x: -284px;
+    background-position-y: -397px;
+}
+.parado5 {
+    width: 93px;
+    height: 108px;
+    background-position-x: -273px;
+    background-position-y: -523px;
 }
 .correr {
-    width: 122px;
-    height: 135px;
-    background-size: 120em;
-    background-position-x: -432px;
-    background-position-y: 18px;
+    width: 69px;
+    height: 99px;
+    background-position-x: -464px;
+    background-position-y: -17px;
 }
 .correr2 {
-    width: 122px;
-    height: 103px;
-    background-size: 120em;
-    background-position-x: -424px;
-    background-position-y: -128px;
+    width: 118px;
+    height: 94px;
+    background-position-x: -428px;
+    background-position-y: -140px;
 }
 .correr3 {
-    width: 122px;
-    height: 110px;
-    background-size: 120em;
-    background-position-x: -425px;
-    background-position-y: -230px;
+    width: 97px;
+    height: 94px;
+    background-position-x: -440px;
+    background-position-y: -255px;
 }
 .correr4 {
-    width: 122px;
-    height: 113px;
-    background-size: 120em;
-    background-position-x: -423px;
-    background-position-y: -341px;
+    width: 67px;
+    height: 93px;
+    background-position-x: -458px;
+    background-position-y: -373px;
 }
 .correr5 {
-    width: 122px;
-    height: 117px;
-    background-size: 120em;
-    background-position-x: -411px;
-    background-position-y: -458px;
+    width: 73px;
+    height: 99px;
+    background-position-x: -441px;
+    background-position-y: -493px;
 }
 .saltar {
-    width: 122px;
-    height: 120px;
-    background-size: 120em;
-    background-position-x: -564px;
-    background-position-y: 0;
+    width: 69px;
+    height: 108px;
+    background-position-x: -614px;
+    background-position-y: -11px;
 }
 .saltar2 {
-    width: 122px;
-    height: 127px;
-    background-size: 120em;
-    background-position-x: -564px;
-    background-position-y: -130px;
-    /* bottom: 6px; */
+    width: 81px;
+    height: 130px;
+    background-position-x: -591px;
+    background-position-y: -132px;
 }
 .saltar3 {
-    width: 122px;
+    width: 77px;
     height: 135px;
-    background-size: 120em;
-    background-position-x: -564px;
-    background-position-y: -267px;
-    /* bottom: 30px; */
+    background-position-x: -592px;
+    background-position-y: -277px;
 }
 .saltar4 {
-    width: 122px;
+    width: 81px;
     height: 130px;
-    background-size: 120em;
-    background-position-x: -553px;
-    background-position-y: -414px;
-    /* bottom: 90px; */
+    background-position-x: -580px;
+    background-position-y: -430px;
 }
