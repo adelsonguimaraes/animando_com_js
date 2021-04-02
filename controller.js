@@ -1,6 +1,7 @@
 document.addEventListener("DOMContentLoaded", function(event) {
 
     const PERSONAGEM = document.querySelector('.personagem');
+    const PLATAFORMA = document.querySelector('.plataforma');
     let persona = {
         animations: {
             parado: ['parado', 'parado2', 'parado3', 'parado4', 'parado5'],
@@ -22,8 +23,9 @@ document.addEventListener("DOMContentLoaded", function(event) {
             down: false
         },
         state: 'parado',
+        solo: 469,
         top: 469,
-        top_actual: this.top,
+        top_actual: 469,
         max_jump: 150,
         rested () {
             if (!this.actions.rested) {
@@ -47,10 +49,13 @@ document.addEventListener("DOMContentLoaded", function(event) {
                 this.actions.move_left = true;
                 this.stop_move_right();
                 this.stop_rested();
+                this.colision_bottom();
                 PERSONAGEM.querySelector('.content').classList.add('retorno');
                 console.log('mover para a esquerda');
                 let left = PERSONAGEM.offsetLeft;
                 this.intervals.move_left = setInterval(()=>{
+                    if (this.colision_left()) return false;
+
                     PERSONAGEM.style.left= (left-=1) + 'px';
                     
                     if (this.actions.jump) return false;
@@ -84,9 +89,12 @@ document.addEventListener("DOMContentLoaded", function(event) {
                 PERSONAGEM.querySelector('.content').classList.remove('retorno');
                 this.stop_move_left();
                 this.stop_rested();
+                this.colision_bottom();
                 console.log('mover para a direita');
                 let left = PERSONAGEM.offsetLeft;
                 this.intervals.move_right = setInterval(()=>{
+                    if (this.colision_right()) return false;
+
                     PERSONAGEM.style.left= (left+=1) + 'px';
 
                     if (this.actions.jump) return false;
@@ -119,7 +127,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
                 this.actions.jump = true;
                 this.stop_rested();
                 console.log('saltando');
-                this.top_actual = this.top;
+                // this.top_actual = this.top;
                 this.intervals.jump = setInterval(()=>{
                     // lógica que soma 1px ao top até atingir o max_jump
                     // depois decrementa até voltar ao top padrão
@@ -152,24 +160,77 @@ document.addEventListener("DOMContentLoaded", function(event) {
                 this.stop_rested();
                 console.log('caindo');
                 this.intervals.down = setInterval(()=>{
+                    this.colision_bottom();
+
                     if (this.top_actual<this.top) {
                         this.top_actual+= 1;
                         PERSONAGEM.style.top = this.top_actual + 'px';
                     }else{
-                        clearInterval(this.intervals.down);
-                        this.actions.down=false;
-                        this.actions.jump = false;
-                        this.intervals.down = false;
-                        PERSONAGEM.querySelector('.content').classList.remove(this.state);
-                        this.state = 'parado';
-                        PERSONAGEM.querySelector('.content').classList.add(this.state);
-                        console.log('acabou a queda');
+                        this.stop_down();
                     }
                 });
+            }
+        },
+        stop_down () {
+            clearInterval(this.intervals.down);
+            this.actions.down=false;
+            this.actions.jump = false;
+            this.intervals.down = false;
+            PERSONAGEM.querySelector('.content').classList.remove(this.state);
+            this.state = 'parado';
+            PERSONAGEM.querySelector('.content').classList.add(this.state);
+            console.log('acabou a queda');
+        },
+        colision_left () {
+            let plataformas = document.querySelectorAll('.plataforma');
+            let bound_p = PERSONAGEM.getBoundingClientRect();
+            let bound_pl = PLATAFORMA.getBoundingClientRect();
+            // se o lado esquerdo do personagem está encostado ou dentro do lado direito da plataforma
+            if (bound_p.left<=bound_pl.right 
+                // se o lado esquerdo do personagem está encostado ou dentro do lado esquerdo
+                && bound_p.left>=bound_pl.left
+                // se a cabeça do personagem está acima do rodapé da plataforma
+                && bound_p.top<bound_pl.bottom
+                // se o pé do personagem está abaixo do topo da plataforma
+                && bound_p.bottom>bound_pl.top
+                ) {
+                this.stop_move_left();
+                return true;
+            }else{
+                return false;
+            }
+        },
+        colision_right () {
+            let bound_p = PERSONAGEM.getBoundingClientRect();
+            let bound_pl = PLATAFORMA.getBoundingClientRect();
+            
+            if (bound_p.right>=bound_pl.left && bound_p.right<=bound_pl.right
+                && bound_p.top<bound_pl.bottom && bound_p.bottom>bound_pl.top) {
+                this.stop_move_right();
+                console.log('aq');
+                return true;
+            }else{
+                return false;
+            }
+        },
+        colision_bottom () {
+            let bound_p = PERSONAGEM.getBoundingClientRect();
+            let bound_pl = PLATAFORMA.getBoundingClientRect();
+
+            // console.log(bound_p.bottom.toFixed() + ' - ' +bound_pl.top.toFixed());
+            if (bound_p.bottom.toFixed()===bound_pl.top.toFixed()
+            && bound_p.right>=bound_pl.left && bound_p.right<=bound_pl.right) {
+                console.log('colidiu sobre');
+                this.top = (bound_pl.top - (bound_p.height+1));
+                PERSONAGEM.style.top = this.top + 'px';
+            }else{
+                this.top = this.solo;
+                this.down();
             }
         }
     };
 
+    // start animation rest
     persona.rested();
 
 

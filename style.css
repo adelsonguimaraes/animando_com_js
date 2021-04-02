@@ -63,19 +63,19 @@ body {
 .personagem {
     position: absolute;
     /* margin-left: 500px; */
-    left: 500px;
+    left: 100px;
     top: 469px;
     border: 1px solid red;
     height: 135px;
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 122px;
+    width: 100px; /*122*/
 }
 .personagem > .content {
     background-image: url('./sprite_megaman2.png');
     background-size: 105em;
-    /* background-color: orange; */
+    background-color: orange;
     position: absolute;
     bottom: 0;
 }
